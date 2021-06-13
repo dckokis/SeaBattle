@@ -5,18 +5,27 @@
 #include "Ship.hpp"
 #include "BoardCell.hpp"
 
+namespace {
+    const size_t Size = 10;
+    const size_t FourDeckShipCount = 1;
+    const size_t ThreeDeckShipCount = 2;
+    const size_t TwoDeckShipCount = 3;
+    const size_t OneDeckShipCount = 4;
+}
+
 class GameBoard {
 private:
-    static const int _size = 10;            // размер игорового поля
-    static const int _4DeckShipCount = 1;   // число 4-х палубных
-    static const int _3DeckShipCount = 2;   // число 3-х палубных
-    static const int _2DeckShipCount = 3;   // число 2-х палубных
-    static const int _1DeckShipCount = 4;   // число 1-х палубных
-    int _shipsAmount = 0;
-    static const int _shipsCount = _4DeckShipCount + _3DeckShipCount + _2DeckShipCount + _1DeckShipCount;   // число кораблей
-    BoardCell _cells[_size][_size]; // клетки игрового поля
-    Ship _ships[_shipsCount];   // корабли
-// функция создание игрового поля
+    static const size_t _size = Size;
+    static const size_t _4DeckShipCount = FourDeckShipCount;
+    static const size_t _3DeckShipCount = ThreeDeckShipCount;
+    static const size_t _2DeckShipCount = TwoDeckShipCount;
+    static const size_t _1DeckShipCount = OneDeckShipCount;
+    size_t _shipsAmount = 0;
+    static const size_t _shipsCount =
+            _4DeckShipCount + _3DeckShipCount + _2DeckShipCount + _1DeckShipCount;
+    BoardCell _cells[_size][_size];
+    Ship _ships[_shipsCount];
+
     void Generate();
 
 public:
@@ -26,34 +35,34 @@ public:
 
     ~GameBoard() = default;
 
-    void AddShip(int x, int y, int size, bool horizontal);
-// функция установки статуса клетки игровго поля
-    inline void SetState(int x, int y, CellState state) {
+    bool AddShip(size_t x, size_t y, size_t size, bool horizontal);
+
+    inline void SetState(size_t x, size_t y, CellState state) {
         _cells[y][x].SetState(state);
     }
 
-// функция возвращает является ли клетка палубой
-    inline bool IsDeck(int x, int y) {
-        return _cells[y][x].GetState() == CellState::Deck or _cells[y][x].GetState() == CellState::DamagedDeck;
+    [[nodiscard]] inline CellState GetState(size_t x, size_t y) const{
+        if (x < 0 or y < 0 or x >= _size or y >= _size)
+            return CellState::Empty;
+        return _cells[y][x].GetState();
     }
 
-// функция печати игрового поля
+//    inline bool IsDeck(int x, int y) {
+//        return _cells[y][x].GetState() == CellState::Deck or _cells[y][x].GetState() == CellState::DamagedDeck;
+//    }
+
     void Print();
 
-// функция возвращает число клеток игровой области
     static inline int GetCount() {
         return _size * _size;
     }
 
-// функция возвращает размер игровой области
     static inline int GetSize() {
         return _size;
     }
 
-// функция - выстрел в игрове поле
     void Shoot(int x, int y);
 
-// функция провекри - уничтожены ли все корабли на поле
     bool AllShipsDestroyed();
 };
 

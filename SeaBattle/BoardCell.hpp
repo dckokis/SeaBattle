@@ -7,21 +7,22 @@ enum class CellState {
     Empty,
     Deck,
     Miss,
-    DamagedDeck
+    DamagedDeck,
+    Fire
 };
 
 class BoardCell {
 private:
-    int _x, _y;         // координаты клетки
+    size_t _x, _y;         // координаты клетки
     CellState _state;   // состояние клетки
 public:
     explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty) : _x(x), _y(y), _state(state) {};
 
-    inline void SetX(int x) {
+    inline void SetX(size_t x) {
         _x = x;
     }
 
-    inline void SetY(int y) {
+    inline void SetY(size_t y) {
         _y = y;
     }
 
@@ -29,19 +30,19 @@ public:
         _state = state;
     }
 
-    inline CellState GetState() {
+    [[nodiscard]] inline CellState GetState() const {
         return _state;
     }
 
-    [[nodiscard]] inline int GetX() const {
+    [[nodiscard]] inline size_t GetX() const {
         return _x;
     }
 
-    [[nodiscard]] inline int GetY() const {
+    [[nodiscard]] inline size_t GetY() const {
         return _y;
     }
 
-    inline bool TryHit(int x, int y) const {
+    [[nodiscard]] inline bool TryHit(size_t x, size_t y) const {
         return x == _x and y == _y;
     }
 

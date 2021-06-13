@@ -1,13 +1,12 @@
 #include "Ship.hpp"
 
 Ship::~Ship() {
-    // очистим память, если она была выделена.
     if (_size)
         delete _decks;
 }
 
 void
-Ship::Create(int size, int x, int y, bool horizontal) {/////////////////нужна проверка что корабль не выходит за границы
+Ship::Create(size_t size, size_t x, size_t y, bool horizontal) {/////////////////нужна проверка что корабль не выходит за границы
     _size = size;
     _decks = new BoardCell[size];
     // заполняем клетки в зависимости от начала координат корябля и его направления
@@ -23,24 +22,22 @@ Ship::Create(int size, int x, int y, bool horizontal) {/////////////////нужн
 }
 
 ShipState Ship::GetState() {
-    // считаем число попаданий
     int hitCount = 0;
     for (int i = 0; i < _size; i++)
         if (_decks[i].GetState() == CellState::DamagedDeck)
             hitCount++;
 
-    // сверяем число попаданий с числом палуб
-    if (hitCount == 0)  // если не попали - корабль цел
+    if (hitCount == 0)
         _state = ShipState::Safe;
-    else if (hitCount < _size)  // если попали но меньше раз, чем число палуб, то ранен
+    else if (hitCount < _size)
         _state = ShipState::DamagedShip;
     else
-        _state = ShipState::Destroyed; // иначе уничтожен
+        _state = ShipState::Destroyed;
 
     return _state;
 }
 
-void Ship::Shoot(int x, int y) {
+void Ship::Shoot(size_t x, size_t y) {
     for (int i = 0; i < _size; i++)
         if (_decks[i].TryHit(x, y)) {
             _decks[i].SetState(CellState::DamagedDeck);

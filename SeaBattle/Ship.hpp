@@ -1,7 +1,8 @@
 #ifndef SEABATTLE_SHIP_HPP
 #define SEABATTLE_SHIP_HPP
+
 #include "BoardCell.hpp"
-// множество состояний корабля
+
 enum class ShipState {
     Destroyed,
     DamagedShip,
@@ -10,31 +11,27 @@ enum class ShipState {
 
 class Ship {
 private:
-    BoardCell *_decks;  // клетки корабля
-    ShipState _state;   // состояние корабля
-    int _size;
+    BoardCell *_decks = nullptr;
+    ShipState _state = ShipState::Safe;
+    size_t _size = 0;
 public:
-    Ship() {
-        _state = ShipState::Safe;
-        _decks = nullptr;
-        _size = 0;
-    }
+    Ship() = default;
 
-    void Create(int size, int x, int y, bool horizontal);
+    void Create(size_t size, size_t x, size_t y, bool horizontal);
 
     inline BoardCell GetDeck(int _deckNum) {
         return _decks[_deckNum];
     }
+
     ~Ship();
 
-    // функция вощвращает состояние корабля, выполнив проверку целостности всех палуб
     ShipState GetState();
-    inline int GetSize() const {
+
+    [[nodiscard]] inline size_t GetSize() const {
         return _size;
     };
 
-    // функция выстрела по корабрю, возвращает состояние корябля, после выстрела
-    void Shoot(int x, int y);
+    void Shoot(size_t x, size_t y);
 
     bool TryHit(int x, int y);
 };
