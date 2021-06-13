@@ -41,15 +41,7 @@ public:
         _cells[y][x].SetState(state);
     }
 
-    [[nodiscard]] inline CellState GetState(size_t x, size_t y) const{
-        if (x < 0 or y < 0 or x >= _size or y >= _size)
-            return CellState::Empty;
-        return _cells[y][x].GetState();
-    }
-
-//    inline bool IsDeck(int x, int y) {
-//        return _cells[y][x].GetState() == CellState::Deck or _cells[y][x].GetState() == CellState::DamagedDeck;
-//    }
+    [[nodiscard]] CellState GetState(size_t x, size_t y) const;
 
     void Print();
 

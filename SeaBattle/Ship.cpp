@@ -6,10 +6,9 @@ Ship::~Ship() {
 }
 
 void
-Ship::Create(size_t size, size_t x, size_t y, bool horizontal) {/////////////////нужна проверка что корабль не выходит за границы
+Ship::Create(size_t size, size_t x, size_t y, bool horizontal) {
     _size = size;
     _decks = new BoardCell[size];
-    // заполняем клетки в зависимости от начала координат корябля и его направления
     for (int i = 0; i < size; i++) {
         if (horizontal) {
             _decks[i].SetX(x + i);

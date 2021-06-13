@@ -1,8 +1,6 @@
 #ifndef SEABATTLE_BOARDCELL_HPP
 #define SEABATTLE_BOARDCELL_HPP
 
-
-// множество состояний одной клетки
 enum class CellState {
     Empty,
     Deck,
@@ -13,8 +11,8 @@ enum class CellState {
 
 class BoardCell {
 private:
-    size_t _x, _y;         // координаты клетки
-    CellState _state;   // состояние клетки
+    size_t _x, _y;
+    CellState _state;
 public:
     explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty) : _x(x), _y(y), _state(state) {};
 
@@ -46,7 +44,6 @@ public:
         return x == _x and y == _y;
     }
 
-    // функция печати одной клетки, в зависимости от ее состояния
     void Print();
 };
 

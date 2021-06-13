@@ -45,20 +45,6 @@ void GameBoard::Generate() {
             _cells[i][j].SetY(i);
         }
     }
-//    // расставяем 4-х палубные
-//    AddShip(0, 0, 4, true);
-//    // расставяем 3-х палубные
-//    AddShip(0, 2, 3, false);
-//    AddShip(8, 1, 3, false);
-//    // расставяем 2-х палубные
-//    AddShip(3, 9, 2, true);
-//    AddShip(2, 6, 2, true);
-//    AddShip(6, 5, 2, true);
-//    // расставяем 1-х палубные
-//    AddShip(4, 2, 1, true);
-//    AddShip(8, 8, 1, true);
-//    AddShip(0, 8, 1, true);
-//    AddShip(6, 0, 1, true);
     size_t x, y;
 
     int placedShips = 0;
@@ -170,5 +156,11 @@ bool GameBoard::AddShip(size_t x, size_t y, size_t size, bool horizontal) {
         }
     }
     return isPlaced;
+}
+
+CellState GameBoard::GetState(size_t x, size_t y) const {
+    if (x < 0 or y < 0 or x >= _size or y >= _size)
+        return CellState::Empty;
+    return _cells[y][x].GetState();
 }
 
