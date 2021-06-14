@@ -11,24 +11,24 @@ void BoardCell::Print() {
     con_initPair(RED, CON_COLOR_RED, CON_COLOR_BLACK);
     switch (_state) {
         case CellState::Empty:
-            con_charAt('~', WHITE, _x , _y );
+            con_charAt('~', WHITE, _x, _y);
             break;
         case CellState::DamagedDeck:
-            con_charAt('x', RED, _x , _y );
+            con_charAt('x', RED, _x, _y);
             break;
         case CellState::Fire:
-            con_charAt('!', RED, _x , _y );
+            con_charAt('!', RED, _x, _y);
             break;
         case CellState::Deck:
             if (_isVisible) {
-                con_charAt('#', WHITE, _x , _y );
+                con_charAt('#', WHITE, _x, _y);
                 break;
             } else {
-                con_charAt('~', WHITE, _x , _y );
+                con_charAt('~', WHITE, _x, _y);
                 break;
             }
         case CellState::Miss:
-            con_charAt('*', WHITE, _x , _y );
+            con_charAt('*', WHITE, _x, _y);
             break;
     }
 }

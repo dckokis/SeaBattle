@@ -121,7 +121,7 @@ bool GameBoard::Shoot(size_t x, size_t y) {
                 }
             }
             break;
-        } else{
+        } else {
             _cells[y][x].SetState(CellState::Miss);
             return false;
         }

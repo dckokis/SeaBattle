@@ -15,7 +15,10 @@ private:
     CellState _state;
     bool _isVisible;
 public:
-    explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty, bool isVisible = true) : _x(x), _y(y), _state(state), _isVisible(isVisible){};
+    explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty, bool isVisible = true) : _x(x), _y(y),
+                                                                                                          _state(state),
+                                                                                                          _isVisible(
+                                                                                                                  isVisible) {};
 
     inline void SetX(size_t x) {
         _x = x;
@@ -51,6 +54,5 @@ public:
 
     void Print();
 };
-
 
 #endif //SEABATTLE_BOARDCELL_HPP

@@ -28,10 +28,12 @@ private:
     bool _isGamerField = true;
     int FIELD_SHIFT_X = 0;
     int FIELD_SHIFT_Y = 12;
+
     void Generate();
 
 public:
-    explicit GameBoard(bool isGamerField, int shiftX, int shiftY) : _isGamerField(isGamerField), FIELD_SHIFT_X(shiftX), FIELD_SHIFT_Y(shiftY) {
+    explicit GameBoard(bool isGamerField, int shiftX, int shiftY) : _isGamerField(isGamerField), FIELD_SHIFT_X(shiftX),
+                                                                    FIELD_SHIFT_Y(shiftY) {
         Generate();
     }
 
@@ -47,10 +49,6 @@ public:
 
     void Print();
 
-    static inline int GetCount() {
-        return _size * _size;
-    }
-
     static inline int GetSize() {
         return _size;
     }
@@ -59,6 +57,5 @@ public:
 
     bool AllShipsDestroyed();
 };
-
 
 #endif //SEABATTLE_GAMEBOARD_HPP

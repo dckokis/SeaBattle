@@ -36,5 +36,4 @@ public:
     bool TryHit(size_t x, size_t y);
 };
 
-
 #endif //SEABATTLE_SHIP_HPP
