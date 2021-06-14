@@ -33,7 +33,7 @@ public:
 
     void Shoot(size_t x, size_t y);
 
-    bool TryHit(int x, int y);
+    bool TryHit(size_t x, size_t y);
 };
 
 

@@ -13,8 +13,9 @@ class BoardCell {
 private:
     size_t _x, _y;
     CellState _state;
+    bool _isVisible;
 public:
-    explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty) : _x(x), _y(y), _state(state) {};
+    explicit BoardCell(int x = 0, int y = 0, CellState state = CellState::Empty, bool isVisible = true) : _x(x), _y(y), _state(state), _isVisible(isVisible){};
 
     inline void SetX(size_t x) {
         _x = x;
@@ -26,6 +27,10 @@ public:
 
     inline void SetState(CellState state) {
         _state = state;
+    }
+
+    inline void SetVisibility(bool isVisible) {
+        _isVisible = isVisible;
     }
 
     [[nodiscard]] inline CellState GetState() const {

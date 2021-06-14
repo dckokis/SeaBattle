@@ -1,13 +1,10 @@
-#include <cstdlib>
 #include "GameBoard.hpp"
+#include "Random.hpp"
 #include "console.h"
 
 using namespace std;
 
 namespace {
-    size_t getRandom(size_t size) {
-        return rand() % size;
-    }
 
     bool isPossibleToPlace(const GameBoard &board, size_t x, size_t y, size_t size, bool horizontal) {
         bool isPossible = true;
@@ -41,8 +38,12 @@ void GameBoard::Generate() {
     for (int i = 0; i < _size; i++) {
         for (int j = 0; j < _size; j++) {
             _cells[i][j].SetState(CellState::Empty);
-            _cells[i][j].SetX(j);
-            _cells[i][j].SetY(i);
+            _cells[i][j].SetX(j + FIELD_SHIFT_X);
+            _cells[i][j].SetY(i + FIELD_SHIFT_Y);
+            if (_isGamerField)
+                _cells[i][j].SetVisibility(true);
+            else
+                _cells[i][j].SetVisibility(false);
         }
     }
     size_t x, y;
@@ -98,20 +99,19 @@ void GameBoard::Generate() {
 }
 
 void GameBoard::Print() {
-    con_clearScr();
-    {
-        for (auto &_cell : _cells) {
-            for (auto &j : _cell) {
-                j.Print();
-            }
+    for (auto &_cell : _cells) {
+        for (auto &j : _cell) {
+            j.Print();
         }
     }
 }
 
-void GameBoard::Shoot(int x, int y) {
+bool GameBoard::Shoot(size_t x, size_t y) {
+    bool hit = false;
     for (auto &ship : _ships) {
         if (ship.TryHit(x, y)) {
             ship.Shoot(x, y);
+            hit = true;
             SetState(x, y, CellState::DamagedDeck);
             if (ship.GetState() == ShipState::Destroyed) {
                 for (int i = 0; i < ship.GetSize(); i++) {
@@ -121,10 +121,12 @@ void GameBoard::Shoot(int x, int y) {
                 }
             }
             break;
-        } else
+        } else{
             _cells[y][x].SetState(CellState::Miss);
-
+            return false;
+        }
     }
+    return hit;
 }
 
 bool GameBoard::AllShipsDestroyed() {
@@ -133,7 +135,7 @@ bool GameBoard::AllShipsDestroyed() {
         if (ship.GetState() == ShipState::Destroyed)
             destroyed++;
     }
-    if (destroyed == _shipsCount)
+    if (destroyed == _shipsAmount)
         return true;
     else
         return false;

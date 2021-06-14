@@ -44,7 +44,7 @@ void Ship::Shoot(size_t x, size_t y) {
         }
 }
 
-bool Ship::TryHit(int x, int y) {
+bool Ship::TryHit(size_t x, size_t y) {
     for (int i = 0; i < _size; i++)
         if (_decks[i].TryHit(x, y))
             return true;

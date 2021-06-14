@@ -25,11 +25,13 @@ private:
             _4DeckShipCount + _3DeckShipCount + _2DeckShipCount + _1DeckShipCount;
     BoardCell _cells[_size][_size];
     Ship _ships[_shipsCount];
-
+    bool _isGamerField = true;
+    int FIELD_SHIFT_X = 0;
+    int FIELD_SHIFT_Y = 12;
     void Generate();
 
 public:
-    GameBoard() {
+    explicit GameBoard(bool isGamerField, int shiftX, int shiftY) : _isGamerField(isGamerField), FIELD_SHIFT_X(shiftX), FIELD_SHIFT_Y(shiftY) {
         Generate();
     }
 
@@ -53,7 +55,7 @@ public:
         return _size;
     }
 
-    void Shoot(int x, int y);
+    bool Shoot(size_t x, size_t y);
 
     bool AllShipsDestroyed();
 };
